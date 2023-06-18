@@ -1,0 +1,24 @@
+<%- include("header") -%>
+
+<div class="box" id="heading">
+    <h1>Your Lists</h1>
+</div>
+<div class="box">
+    <% lists.forEach(function(list){ %>
+        
+        <div class="item vertical-menu">
+                <a href="/<%- list.name %>"><%= list.name%></a>
+            <form action="/delete-list" method="post">
+                <button class="removeItem" type="submit" name="delete" value="<%= list._id %>">-</button>
+            </form>
+        </div>
+          
+    <% }) %>
+
+    <form class="item" action="/" method="post">
+        <input type="text" name="newList" placeholder="New List Name">
+        <button class="addItem" type="submit" name="list">+</button>
+    </form>
+</div> 
+
+<%- include("footer") -%>

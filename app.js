@@ -123,12 +123,12 @@ app.post("/delete", async function(req, res) {
     }
 });
 
-app.post("/delete-list", async function(req, res) {
+app.post("/delete-list", function(req, res) {
     const toDelete = req.body.delete;
 
     List.findByIdAndRemove(toDelete).then(()=>console.log(`Deleted ${toDelete} Successfully`)).catch(err => console.log(err));
     res.redirect("/");
-})
+});
 
 app.listen(3000, function() {
     console.log("server running on port 3000");

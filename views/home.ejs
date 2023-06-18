@@ -7,9 +7,10 @@
     <% lists.forEach(function(list){ %>
         
         <div class="item vertical-menu">
-                <a href="/<%- list.name %>"><%= list.name%></a>
-            <form action="/delete-list" method="post">
-                <button class="removeItem" type="submit" name="delete" value="<%= list._id %>">-</button>
+                <a href="/<%= list.name %>"><%= list.name%></a>
+            <form action="/deleteList" method="post">
+                <input type="hidden" name="listId" value="<%= list._id %>">
+                <button class="removeItem" type="submit" name="delete">-</button>
             </form>
         </div>
           

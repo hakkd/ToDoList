@@ -97,9 +97,13 @@ app.post("/:listName", function(req, res) {
         name: itemName
     });
     List.findOne({name: listName}).then((foundList) => {
-        foundList.items.push(item);
-        foundList.save();
-        res.redirect("/" + listName);
+        if (foundList) {
+            foundList.items.push(item);
+            foundList.save();
+            res.redirect("/" + listName);
+        } else {
+            res.redirect("/");
+        }
     }).catch((err) => {console.error(err)}
     );
     
@@ -123,10 +127,12 @@ app.post("/delete", async function(req, res) {
     }
 });
 
-app.post("/delete-list", function(req, res) {
-    const toDelete = req.body.delete;
+app.post("/deleteList", async function(req, res) {
+    console.log(req.params);
+    const toDelete = req.body.listId;
+    console.log(toDelete);
 
-    List.findByIdAndRemove(toDelete).then(()=>console.log(`Deleted ${toDelete} Successfully`)).catch(err => console.log(err));
+    await List.findByIdAndRemove(toDelete).then(()=>console.log(`Deleted ${toDelete} Successfully`)).catch(err => console.log(err));
     res.redirect("/");
 });
 
